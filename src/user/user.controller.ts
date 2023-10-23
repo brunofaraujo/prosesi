@@ -1,11 +1,14 @@
-import { Body, Controller, Post, Get, Param, Put, Patch, Delete } from '@nestjs/common';
+import { Body, Controller, Post, Get, Param, Put, Patch, Delete, ParseIntPipe } from '@nestjs/common';
+import { CreateUserDTO } from './dto/create-user.dto';
+import { UpdatePutUserDTO } from './dto/update-put-user.dto';
+import { UpdatePatchUserDTO } from './dto/update-patchh-user.dto';
 
 @Controller('users')
 export class UserController {
 
     @Post()
-    async create(@Body() body) {
-        return {body}
+    async create(@Body() {email, name, password, passwordConfirmation}: CreateUserDTO) {
+        return {email, name, password, passwordConfirmation}
     }
 
     @Get()
@@ -19,25 +22,25 @@ export class UserController {
     }
 
     @Put(':id')
-    async updateFull(@Body() body, @Param() params) {
+    async updateFull(@Body() {email, name, password, passwordConfirmation}: UpdatePutUserDTO, @Param('id', ParseIntPipe) id: number) {
         return {
             method: "PUT",
-            body: body,
-            params: params
+            email, name, password, passwordConfirmation,
+            id
         }
     }
 
     @Patch(':id')
-    async update(@Body() body, @Param() params) {
+    async update(@Body() {email, name, password, passwordConfirmation}: UpdatePatchUserDTO, @Param('id', ParseIntPipe) id: number) {
         return {
             method: "PATCH",
-            body: body,
-            params: params
+            email, name, password, passwordConfirmation,
+            id
         }
     }
 
     @Delete(':id')
-    async delete(@Param() params) {
-        return { params }
+    async delete(@Param('id', ParseIntPipe) id: number) {
+        return { id }
     }
 }
