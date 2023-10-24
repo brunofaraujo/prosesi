@@ -15,7 +15,4 @@ export class CreateUserDTO {
         minUppercase: 0
     })
     password: string;
-
-    @IsString()
-    passwordConfirmation: string;
 }
