@@ -21,7 +21,7 @@ export class UserController {
 
     @Get(':id')
     async getUser(@Param('id', ParseIntPipe) id: number) {
-        return this.userService.getUser(id);
+        return this.userService.getUser(id)
     }
 
     @Put(':id')
@@ -38,4 +38,5 @@ export class UserController {
     async delete(@Param('id', ParseIntPipe) id: number) {
         return await this.userService.delete(id)
     }
+
 }
