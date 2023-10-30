@@ -6,6 +6,7 @@ import { AuthResetDTO } from "./dto/auth-reset.dto";
 import { AuthService } from "./auth.service";
 import { AuthGuard } from "src/guards/auth.guard";
 import { AuthMeDTO } from "./dto/auth-me.dto";
+import { User } from "src/decorators/user.decorator";
 
 @Controller('auth')
 export class AuthController {
@@ -44,8 +45,8 @@ export class AuthController {
     // Test route
     @UseGuards(AuthGuard)
     @Post('me')
-    async me(@Request() request) {
-        return {me: "OK", data: request.token, user: request.user}
+    async me(@User('email') user) {
+        return {user}
     }
 
 }
