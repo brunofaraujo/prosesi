@@ -21,7 +21,7 @@ export class AuthService {
     private readonly userService: UserService,
   ) {}
 
-  async createToken(user: User) {
+  createToken(user: User) {
     return {accessToken: this.jwtService.sign(
       {
         id: user.id,
@@ -31,12 +31,12 @@ export class AuthService {
       {
         subject: String(user.id),
         audience: 'users',
-        expiresIn: '1 hour'
+        expiresIn: '7 days'
       },
     )}
   }
 
-  async checkToken(token: string) {
+  checkToken(token: string) {
 
     try {
         const data = this.jwtService.verify(token, {
@@ -51,7 +51,7 @@ export class AuthService {
 
   }
 
-  async isValidToken(token: string) {
+  isValidToken(token: string) {
     try {
       if (this.checkToken(token)) {
         return true
